@@ -25,8 +25,25 @@ public class PlayerMovement : MonoBehaviour
     public float JumpForce => (2f * maxJumpHeight) / (maxJumpTime / 2f); // The parabola for the jump
     public float Gravity => (-2f * maxJumpHeight) / Mathf.Pow((maxJumpTime / 2f), 2);
 
+    /// <summary>
+    /// Whether Mario is grounded or not.
+    /// </summary>
     public bool Grounded { get; private set; }
+
+    /// <summary>
+    /// Whether Mario is jumping or not.
+    /// </summary>
     public bool Jumping { get; private set; }
+
+    /// <summary>
+    /// Whether Mario is sliding or not.
+    /// </summary>
+    public bool Sliding => (inputAxis > 0f && velocity.x < 0f) | (inputAxis < 0f && velocity.x > 0f);
+
+    /// <summary>
+    /// Whether Mario is running or not (uses 0.3 instead of 0 as the XVel)
+    /// </summary>
+    public bool Running => Mathf.Abs(velocity.x) > 0.3f || Mathf.Abs(inputAxis) > 0.3f;
 
     #endregion
 

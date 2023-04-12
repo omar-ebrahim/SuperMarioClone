@@ -410,6 +410,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0d7c6253ebc42eb4bb3c70aebf0d64ce, type: 3}
   - {fileID: 21300000, guid: 7edd2cdfef841e145a8463421e8438b3, type: 3}
   - {fileID: 21300000, guid: 0bec5d16a5e69c84e86c37a7c29117be, type: 3}
+  - {fileID: 21300000, guid: 7edd2cdfef841e145a8463421e8438b3, type: 3}
   frameRate: 0.16666667
 --- !u!1001 &81534591
 PrefabInstance:
@@ -807,7 +808,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 183749619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0ccc1db39b704c079d1e9303f379d78, type: 3}
   m_Name: 
@@ -816,6 +817,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0c7aed8cc91acda4fbb4c126f46d48eb, type: 3}
   - {fileID: 21300000, guid: 1b37bf0536de06945a6b97f6f1e2e16a, type: 3}
   - {fileID: 21300000, guid: 6dd9b13858dc8ad41904fc78a4643502, type: 3}
+  - {fileID: 21300000, guid: 1b37bf0536de06945a6b97f6f1e2e16a, type: 3}
   frameRate: 0.16666667
 --- !u!1 &189896299
 GameObject:
@@ -6837,5 +6839,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mario
       objectReference: {fileID: 0}
+    - target: {fileID: 6937230894515753201, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
+      propertyPath: run
+      value: 
+      objectReference: {fileID: 183749623}
+    - target: {fileID: 6937230894515753201, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477764111418183606, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
+      propertyPath: run
+      value: 
+      objectReference: {fileID: 80913737}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}

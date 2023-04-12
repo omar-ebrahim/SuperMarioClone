@@ -85,6 +85,28 @@ public class PlayerMovement : MonoBehaviour
         inputAxis = Input.GetAxis(Constants.AXIS_HORIZONTAL);
         // Take current vel, move towards the new input value, over time - independent of frame rate
         velocity.x = Mathf.MoveTowards(velocity.x, inputAxis * moveSpeed, moveSpeed * Time.deltaTime);
+
+        if (rigidbody.RayCast(Vector2.right * velocity.x))
+        {
+            velocity.x = 0f;
+        }
+
+        CalculateDirection();
+    }
+
+    /// <summary>
+    /// Changes the player to face left or right depending on velocity.
+    /// </summary>
+    private void CalculateDirection()
+    {
+        if (velocity.x > 0f)
+        {
+            transform.eulerAngles = Vector3.zero; // face right
+        }
+        else if (velocity.x < 0f)
+        {
+            transform.eulerAngles = new Vector3(0f, 180f, 0f); // rotate on the y-axis 180 degrees
+        }
     }
 
     // Runs at a given interval
@@ -106,8 +128,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.layer != LayerMask.NameToLayer(Constants.LAYER_POWERUP))
         {
-            //velocity.y = 0f; // Stop moving upwards
-
+            if (transform.DotTest(collision.transform, Vector2.up))
+            {
+                velocity.y = 0f; // Stop moving upwards
+            }
         }
     }
 }

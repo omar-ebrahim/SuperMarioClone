@@ -20,5 +20,11 @@
         public const string ACTION_JUMP = "Jump";
 
         #endregion
+
+        #region Tags
+
+        public const string TAG_PLAYER = "Player";
+
+        #endregion
     }
 }

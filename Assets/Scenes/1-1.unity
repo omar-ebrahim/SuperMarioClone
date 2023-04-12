@@ -6785,5 +6785,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mario
       objectReference: {fileID: 0}
+    - target: {fileID: 6251981357613116071, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
+      propertyPath: maxJumpHeight
+      value: 4.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}

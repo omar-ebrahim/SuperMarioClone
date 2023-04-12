@@ -389,6 +389,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2162623385828025583, guid: 9671acd82a51a1e429832beab5715792, type: 3}
   m_PrefabInstance: {fileID: 69812549}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &80913733 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4931117012853187709, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
+  m_PrefabInstance: {fileID: 2276290492185511725}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &80913737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80913733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ccc1db39b704c079d1e9303f379d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 0d7c6253ebc42eb4bb3c70aebf0d64ce, type: 3}
+  - {fileID: 21300000, guid: 7edd2cdfef841e145a8463421e8438b3, type: 3}
+  - {fileID: 21300000, guid: 0bec5d16a5e69c84e86c37a7c29117be, type: 3}
+  frameRate: 0.16666667
 --- !u!1001 &81534591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -773,6 +795,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 930159603901674798, guid: ca8c8dbf6aeabc943ae4ecd74de7276b, type: 3}
   m_PrefabInstance: {fileID: 176101083}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &183749619 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1220169467789529721, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
+  m_PrefabInstance: {fileID: 2276290492185511725}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &183749623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183749619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0ccc1db39b704c079d1e9303f379d78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 0c7aed8cc91acda4fbb4c126f46d48eb, type: 3}
+  - {fileID: 21300000, guid: 1b37bf0536de06945a6b97f6f1e2e16a, type: 3}
+  - {fileID: 21300000, guid: 6dd9b13858dc8ad41904fc78a4643502, type: 3}
+  frameRate: 0.16666667
 --- !u!1 &189896299
 GameObject:
   m_ObjectHideFlags: 0
@@ -6745,14 +6789,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1053010511039454667, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
-      propertyPath: m_Interpolate
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1053010511039454667, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2341407573754505684, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -6800,10 +6836,6 @@ PrefabInstance:
     - target: {fileID: 3884900784488696186, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
       propertyPath: m_Name
       value: Mario
-      objectReference: {fileID: 0}
-    - target: {fileID: 6251981357613116071, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
-      propertyPath: maxJumpHeight
-      value: 4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}

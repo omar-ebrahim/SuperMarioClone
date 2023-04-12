@@ -143,7 +143,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.layer != LayerMask.NameToLayer(Constants.LAYER_POWERUP))
+        if (collision.gameObject.layer == LayerMask.NameToLayer(Constants.LAYER_ENEMY))
+        {
+            if (transform.DotTest(collision.transform, Vector2.down))
+            {
+                // play around with this value, but the player bounces off the top of an enemy
+                velocity.y = JumpForce / 2;
+                Jumping = true;
+            }
+        }
+        else if (collision.gameObject.layer != LayerMask.NameToLayer(Constants.LAYER_POWERUP))
         {
             if (transform.DotTest(collision.transform, Vector2.up))
             {

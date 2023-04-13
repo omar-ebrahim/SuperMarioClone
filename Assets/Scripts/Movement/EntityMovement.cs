@@ -1,7 +1,8 @@
+using System;
 using Assets.Scripts.Helpers;
 using UnityEngine;
 
-public class EntityMovement : MonoBehaviour
+public class EntityMovement : Movement
 {
     #region Private Fields
 
@@ -68,6 +69,20 @@ public class EntityMovement : MonoBehaviour
         {
             velocity.y = Mathf.Max(velocity.y, 0f);
         }
+    }
+
+    #endregion
+
+    #region Public Methods
+
+    public void SetDirection(Vector2 direction)
+    {
+        this.direction = direction;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.speed = speed;
     }
 
     #endregion

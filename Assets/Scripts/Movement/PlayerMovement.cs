@@ -1,7 +1,7 @@
 using Assets.Scripts.Helpers;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : Movement
 {
     #region Fields & Constants
 
@@ -68,6 +68,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         ApplyGravity();
+    }
+
+    private void OnDisable()
+    {
+        rigidbody.isKinematic = true;
+        //collider.enabled = false;
+        velocity = Vector2.zero;
+        Jumping = false;
     }
 
     #endregion

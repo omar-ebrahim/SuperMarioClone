@@ -33,7 +33,6 @@ public class PlayerSpriteRenderer : MonoBehaviour
         else if (!playerMovement.Running)
         {
             spriteRenderer.sprite = idle;
-            run.enabled = false;
         }
     }
 
@@ -45,5 +44,6 @@ public class PlayerSpriteRenderer : MonoBehaviour
     private void OnDisable()
     {
         spriteRenderer.enabled = false;
+        run.enabled = false;
     }
 }

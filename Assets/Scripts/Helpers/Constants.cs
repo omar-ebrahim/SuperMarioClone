@@ -7,6 +7,7 @@
         public const string LAYER_POWERUP = "PowerUp";
         public const string LAYER_DEFAULT = "Default";
         public const string LAYER_ENEMY = "Enemy";
+        public const string LAYER_SHELL = "Shell";
 
         #endregion
 

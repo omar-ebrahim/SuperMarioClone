@@ -3,14 +3,20 @@ using UnityEngine;
 
 public class Goomba : BaseEnemy
 {
-    [SerializeField]
-    private Sprite flatGoomba;
 
     protected override void EnemyCollisionFromAboveBehavior()
     {
         Flatten();
         // Remove from game after 1 second
         Destroy(gameObject, 1f);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer(Constants.LAYER_SHELL))
+        {
+            Hit();
+        }
     }
 
     /// <summary>
@@ -24,6 +30,13 @@ public class Goomba : BaseEnemy
         GetComponent<AnimatedSprite>().enabled = false;
 
         // Swap the sprite
-        GetComponent<SpriteRenderer>().sprite = flatGoomba;
+        GetComponent<SpriteRenderer>().sprite = flatSprite;
+    }
+
+    private void Hit()
+    {
+        GetComponent<DeathAnimation>().enabled = true;
+        GetComponent<AnimatedSprite>().enabled = false;
+        Destroy(gameObject, 3f);
     }
 }

@@ -55,7 +55,7 @@ public class DeathAnimation : MonoBehaviour
     private IEnumerator Animate()
     {
         float elapsed = 0f;
-        float duration = 3f;
+        float duration = 4f;
 
         float jumpVelocity = 10f;
         float gravity = -36f;
@@ -64,8 +64,12 @@ public class DeathAnimation : MonoBehaviour
 
         while (elapsed < duration)
         {
-            transform.position += velocity * Time.deltaTime; // d = vt
-            velocity.y += gravity * Time.deltaTime;
+            if (elapsed > 0.5f) // wait 1/2 second before animating
+            {
+                transform.position += velocity * Time.deltaTime; // d = vt
+                velocity.y += gravity * Time.deltaTime;
+            }
+
             elapsed += Time.deltaTime;
             yield return null;
         }

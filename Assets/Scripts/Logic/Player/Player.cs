@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -5,6 +6,10 @@ public class Player : MonoBehaviour
     #region Private Fields
 
     private DeathAnimation deathAnimation;
+
+    private PlayerSpriteRenderer finalActiveRenderer;
+
+    private CapsuleCollider2D capsuleCollider;
 
     #endregion
 
@@ -20,9 +25,9 @@ public class Player : MonoBehaviour
 
     #region Public Properties
 
-    public bool Big => bigMario.enabled;
-    public bool Small => smallMario.enabled;
-    public bool Dead => deathAnimation.enabled;
+    public bool IsBig => bigMario.enabled;
+    public bool IsSmall => smallMario.enabled;
+    public bool IsDead => deathAnimation.enabled;
 
     #endregion
 
@@ -31,6 +36,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         deathAnimation = GetComponent<DeathAnimation>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
 
     #endregion
@@ -39,7 +45,7 @@ public class Player : MonoBehaviour
 
     public void Hit()
     {
-        if (Big)
+        if (IsBig)
         {
             Shrink();
         }
@@ -55,10 +61,13 @@ public class Player : MonoBehaviour
 
     private void Shrink()
     {
-        // Logic to come later on.
+        SetBig(false);
     }
 
-    //private void Grow() { }
+    public void Grow()
+    {
+        SetBig(true);
+    }
 
     private void Death()
     {
@@ -66,6 +75,52 @@ public class Player : MonoBehaviour
         bigMario.enabled = false;
         deathAnimation.enabled = true;
         GameManager.Instance.ResetLevel(3f);
+    }
+
+    private void SetBig(bool big)
+    {
+        smallMario.enabled = !big;
+        bigMario.enabled = big;
+
+        // What to finally show in the animation
+        finalActiveRenderer = big ? bigMario : smallMario;
+
+        if (big)
+        {
+            capsuleCollider.size = new Vector2(1f, 2f);
+            capsuleCollider.offset = new Vector2(0f, 0.5f);
+        }
+        else
+        {
+            capsuleCollider.size = new Vector2(1f, 1f);
+            capsuleCollider.offset = new Vector2(0f, 0f);
+        }
+
+        StartCoroutine(ScaleAnimation());
+    }
+
+    private IEnumerator ScaleAnimation()
+    {
+        float elapsed = 0f;
+        float duration = 0.5f;
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            if (Time.frameCount % 4 == 0) // Every 4 frames, swap renderer
+            {
+                smallMario.enabled = !smallMario.enabled;
+                bigMario.enabled = !smallMario.enabled;
+            }
+
+            yield return null;
+        }
+
+        smallMario.enabled = false;
+        bigMario.enabled = false;
+
+        finalActiveRenderer.enabled = true;
     }
 
     #endregion

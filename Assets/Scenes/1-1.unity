@@ -505,10 +505,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2003387027}
     m_Modifications:
-    - target: {fileID: -4011233144787106385, guid: ca8c8dbf6aeabc943ae4ecd74de7276b, type: 3}
-      propertyPath: rewardItem
-      value: 
-      objectReference: {fileID: 3400456957143898698, guid: 588826d439cce4630a60ffdbfb1f52c1, type: 3}
     - target: {fileID: 930159603901674798, guid: ca8c8dbf6aeabc943ae4ecd74de7276b, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -3944,7 +3940,7 @@ PrefabInstance:
     - target: {fileID: -4011233144787106385, guid: ca8c8dbf6aeabc943ae4ecd74de7276b, type: 3}
       propertyPath: rewardItem
       value: 
-      objectReference: {fileID: 3400456957143898698, guid: 588826d439cce4630a60ffdbfb1f52c1, type: 3}
+      objectReference: {fileID: 4150538690255938858, guid: 7c082df81668148b58fc50eb450504e4, type: 3}
     - target: {fileID: 930159603901674798, guid: ca8c8dbf6aeabc943ae4ecd74de7276b, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -5102,10 +5098,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2003387027}
     m_Modifications:
-    - target: {fileID: -4011233144787106385, guid: ca8c8dbf6aeabc943ae4ecd74de7276b, type: 3}
-      propertyPath: rewardItem
-      value: 
-      objectReference: {fileID: 3400456957143898698, guid: 588826d439cce4630a60ffdbfb1f52c1, type: 3}
     - target: {fileID: 930159603901674798, guid: ca8c8dbf6aeabc943ae4ecd74de7276b, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -8221,22 +8213,5 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mario
       objectReference: {fileID: 0}
-    - target: {fileID: 4764058167856090749, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6502557295678299507, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6502557295678299507, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
-      propertyPath: deadSprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6502557295678299507, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
-      propertyPath: SpriteRenderer
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6502557295678299507, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c74c7b012154fb04ab2058b5f6d676e5, type: 3}

@@ -10,6 +10,9 @@ public class BlockHit : MonoBehaviour
     [SerializeField]
     private Sprite emptyBlock; // what to change to when maximum hits reaches 0
 
+    [SerializeField]
+    private GameObject rewardItem;
+
     private SpriteRenderer spriteRenderer;
     private bool isAnimated;
     private bool isAnimatable;
@@ -43,6 +46,12 @@ public class BlockHit : MonoBehaviour
         {
             spriteRenderer.sprite = emptyBlock;
             isAnimatable = false;
+        }
+
+        if (rewardItem != null)
+        {
+            // Spawn the reward item at the current location of the block
+            Instantiate(rewardItem, transform.position, Quaternion.identity);
         }
 
         StartCoroutine(Animate());

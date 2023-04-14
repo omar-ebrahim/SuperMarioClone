@@ -8,8 +8,28 @@ public class GameManager : MonoBehaviour
     public int World { get; private set; }
     public int Stage { get; private set; }
     public int Lives { get; private set; }
+    public int Coins { get; private set; }
 
     #region Public Methods
+
+    public void AddCoins()
+    {
+        AddCoins(1);
+    }
+
+    public void AddCoins(int coins)
+    {
+        Coins += coins;
+        if (Coins % 100 == 0)
+        {
+            IncrementLife();
+        }
+    }
+
+    public void IncrementLife()
+    {
+        Lives++;
+    }
 
     public void ResetLevel(float delay)
     {
@@ -34,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         // Eventually, check if we've reached the end of the stage for world
         // e.g. 1-1, 1-2, 2-1, 2-2, etc
-
+        // Store the levels in a dictionary
         LoadLevel(World, Stage + 1);
     }
 
@@ -77,6 +97,7 @@ public class GameManager : MonoBehaviour
     private void NewGame()
     {
         Lives = 3;
+        Coins = 0;
         LoadLevel(1, 1);
     }
 

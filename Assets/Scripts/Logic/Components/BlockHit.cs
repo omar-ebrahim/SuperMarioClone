@@ -36,11 +36,8 @@ public class BlockHit : MonoBehaviour
 
     private void Hit()
     {
-        if (maxHits != -1)
-        {
-            // Don't decrement forever
-            maxHits--;
-        }
+        spriteRenderer.enabled = true; // To account for hidden blocks
+        if (maxHits != -1) maxHits--; // Don't decrement forever
 
         if (maxHits == 0)
         {

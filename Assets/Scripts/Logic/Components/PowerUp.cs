@@ -16,6 +16,7 @@ public class PowerUp : MonoBehaviour
 
     private void Collect(GameObject player)
     {
+        var playerInstance = player.GetComponent<Player>();
         switch (powerUpType)
         {
             case PowerUpType.Coin:
@@ -25,7 +26,6 @@ public class PowerUp : MonoBehaviour
                 GameManager.Instance.IncrementLife();
                 break;
             case PowerUpType.MagicMushroom:
-                var playerInstance = player.GetComponent<Player>();
                 if (playerInstance.IsBig)
                 {
                     GameManager.Instance.IncrementLife();
@@ -36,6 +36,7 @@ public class PowerUp : MonoBehaviour
                 }
                 break;
             case PowerUpType.StarPower:
+                playerInstance.StarPower();
                 break;
             default:
                 break;

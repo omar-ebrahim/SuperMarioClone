@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerSpriteRenderer : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer SpriteRenderer { get; private set; }
     private PlayerMovement playerMovement;
 
     [SerializeField]
@@ -13,7 +13,7 @@ public class PlayerSpriteRenderer : MonoBehaviour
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        SpriteRenderer = GetComponent<SpriteRenderer>();
         // The player movement script reference exists on the parent object
         playerMovement = GetComponentInParent<PlayerMovement>();
     }
@@ -24,26 +24,26 @@ public class PlayerSpriteRenderer : MonoBehaviour
 
         if (playerMovement.Jumping)
         {
-            spriteRenderer.sprite = jump;
+            SpriteRenderer.sprite = jump;
         }
         else if (playerMovement.Sliding)
         {
-            spriteRenderer.sprite = slide;
+            SpriteRenderer.sprite = slide;
         }
         else if (!playerMovement.Running)
         {
-            spriteRenderer.sprite = idle;
+            SpriteRenderer.sprite = idle;
         }
     }
 
     private void OnEnable()
     {
-        spriteRenderer.enabled = true;
+        SpriteRenderer.enabled = true;
     }
 
     private void OnDisable()
     {
-        spriteRenderer.enabled = false;
+        SpriteRenderer.enabled = false;
         run.enabled = false;
     }
 }

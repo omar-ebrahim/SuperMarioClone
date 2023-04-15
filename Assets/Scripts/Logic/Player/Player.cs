@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 
     private DeathAnimation deathAnimation;
 
-    private PlayerSpriteRenderer finalActiveRenderer;
+    private PlayerSpriteRenderer activeRenderer;
 
     private CapsuleCollider2D capsuleCollider;
 
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
     public bool IsBig => bigMario.enabled;
     public bool IsSmall => smallMario.enabled;
     public bool IsDead => deathAnimation.enabled;
+    public bool IsStarPower { get; private set; }
 
     #endregion
 
@@ -37,6 +38,7 @@ public class Player : MonoBehaviour
     {
         deathAnimation = GetComponent<DeathAnimation>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+        activeRenderer = smallMario;
     }
 
     #endregion
@@ -45,6 +47,8 @@ public class Player : MonoBehaviour
 
     public void Hit()
     {
+        if (IsStarPower || IsDead) return;
+
         if (IsBig)
         {
             Shrink();
@@ -55,9 +59,41 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void StarPower(float duration = 10)
+    {
+        IsStarPower = true;
+
+        // Play animation
+        StartCoroutine(StarPowerAnimation(duration));
+
+        IsStarPower = false;
+    }
+
     #endregion
 
     #region Private Methods
+
+    private IEnumerator StarPowerAnimation(float duration = 10)
+    {
+        float elapsed = 0;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            if (Time.frameCount % 4 == 0)
+            {
+                // change the sprite colour.
+                // The actual star power uses multiple sprites per renderer with different colours.
+                // Here, we'll just randomise the sprite colour
+                activeRenderer.SpriteRenderer.color = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f); // Randomise hue only
+            }
+
+            yield return null;
+        }
+
+        // Set the sprite back
+        activeRenderer.SpriteRenderer.color = Color.white;
+    }
 
     private void Shrink()
     {
@@ -83,7 +119,7 @@ public class Player : MonoBehaviour
         bigMario.enabled = big;
 
         // What to finally show in the animation
-        finalActiveRenderer = big ? bigMario : smallMario;
+        activeRenderer = big ? bigMario : smallMario;
 
         if (big)
         {
@@ -120,7 +156,7 @@ public class Player : MonoBehaviour
         smallMario.enabled = false;
         bigMario.enabled = false;
 
-        finalActiveRenderer.enabled = true;
+        activeRenderer.enabled = true;
     }
 
     #endregion

@@ -85,7 +85,7 @@ public class Player : MonoBehaviour
                 // change the sprite colour.
                 // The actual star power uses multiple sprites per renderer with different colours.
                 // Here, we'll just randomise the sprite colour
-                activeRenderer.SpriteRenderer.color = Random.ColorHSV(0f, 1f, 1f, 1f, 1f, 1f); // Randomise hue only
+                activeRenderer.SpriteRenderer.color = Random.ColorHSV(0f, 1f, 0f, 1f, 1f, 1f);
             }
 
             yield return null;

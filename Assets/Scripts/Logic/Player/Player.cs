@@ -61,12 +61,8 @@ public class Player : MonoBehaviour
 
     public void StarPower(float duration = 10)
     {
-        IsStarPower = true;
-
         // Play animation
         StartCoroutine(StarPowerAnimation(duration));
-
-        IsStarPower = false;
     }
 
     #endregion
@@ -75,6 +71,7 @@ public class Player : MonoBehaviour
 
     private IEnumerator StarPowerAnimation(float duration = 10)
     {
+        IsStarPower = true;
         float elapsed = 0;
         while (elapsed < duration)
         {
@@ -93,6 +90,7 @@ public class Player : MonoBehaviour
 
         // Set the sprite back
         activeRenderer.SpriteRenderer.color = Color.white;
+        IsStarPower = false;
     }
 
     private void Shrink()

@@ -11,19 +11,34 @@ public class Koopa : MonoBehaviour
     [SerializeField]
     protected Sprite shellSprite;
 
+    // in shell
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (shelled && collision.gameObject.CompareTag(Constants.TAG_PLAYER))
+        if (collision.gameObject.CompareTag(Constants.TAG_PLAYER))
         {
-            if (pushed)
+            var player = collision.gameObject.GetComponent<Player>();
+            if (player.IsStarPower)
             {
-                var player = collision.gameObject.GetComponent<Player>();
-                player.Hit();
+                Hit();
             }
-            else
+            else if (shelled)
             {
-                Vector2 direction = new Vector2(transform.position.x - collision.transform.position.x, 0f);
-                PushShell(direction);
+                if (pushed)
+                {
+                    if (player.IsStarPower)
+                    {
+                        Hit();
+                    }
+                    else
+                    {
+                        player.Hit();
+                    }
+                }
+                else
+                {
+                    Vector2 direction = new Vector2(transform.position.x - collision.transform.position.x, 0f);
+                    PushShell(direction);
+                }
             }
         }
         else if (!shelled && collision.gameObject.layer == LayerMask.NameToLayer(Constants.LAYER_SHELL))
@@ -32,21 +47,30 @@ public class Koopa : MonoBehaviour
         }
     }
 
+    // not in shell
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!shelled && collision.gameObject.CompareTag(Constants.TAG_PLAYER))
+        if (collision.gameObject.CompareTag(Constants.TAG_PLAYER))
         {
             var player = collision.gameObject.GetComponent<Player>();
 
-            // Player landed on Goomba's head
-            if (collision.transform.DotTest(transform, Vector2.down))
+            if (player.IsStarPower)
             {
-                EnterShell();
+                Hit();
             }
-            else
+            else if (!shelled)
             {
-                player.Hit();
+                // Player landed on Goomba's head
+                if (collision.transform.DotTest(transform, Vector2.down))
+                {
+                    EnterShell();
+                }
+                else
+                {
+                    player.Hit();
+                }
             }
+            
         }
     }
 

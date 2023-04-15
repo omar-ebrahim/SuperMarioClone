@@ -12,9 +12,13 @@ public abstract class BaseEnemy : MonoBehaviour
         {
             var player = collision.gameObject.GetComponent<Player>();
 
-            // Player landed on Goomba's head
-            if (collision.transform.DotTest(transform, Vector2.down))
+            if (player.IsStarPower)
             {
+                EnemyCollisionFromAboveBehavior();
+            }
+            else if (collision.transform.DotTest(transform, Vector2.down))
+            {
+                // Player landed on Goomba's head
                 EnemyCollisionFromAboveBehavior();
             }
             else

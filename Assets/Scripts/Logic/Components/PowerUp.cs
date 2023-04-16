@@ -14,6 +14,14 @@ public class PowerUp : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag(Constants.TAG_PLAYER))
+        {
+            Collect(collision.gameObject);
+        }
+    }
+
     private void Collect(GameObject player)
     {
         var playerInstance = player.GetComponent<Player>();

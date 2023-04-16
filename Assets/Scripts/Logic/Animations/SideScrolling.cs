@@ -6,6 +6,14 @@ public class SideScrolling : MonoBehaviour
 
     private Transform player;
 
+    // camera y = 7, underground = -7
+
+    [SerializeField]
+    private float overgroundHeight = 7;
+
+    [SerializeField]
+    private float undergroundHeight = -7;
+    
     // Initialisation
     private void Awake()
     {
@@ -23,5 +31,12 @@ public class SideScrolling : MonoBehaviour
         cameraPosition.x = Mathf.Max(cameraPosition.x, player.position.x);
 
         transform.position = cameraPosition; // transform is the Transform attached to THIS game object
+    }
+
+    public void SetUnderGround(bool underground)
+    {
+        Vector3 cameraPosition = transform.position;
+        cameraPosition.y = underground ? undergroundHeight : overgroundHeight;
+        transform.position = cameraPosition;
     }
 }

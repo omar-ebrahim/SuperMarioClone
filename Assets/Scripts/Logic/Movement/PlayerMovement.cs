@@ -73,9 +73,13 @@ public class PlayerMovement : Movement
     private void OnDisable()
     {
         rigidbody.isKinematic = true;
-        //collider.enabled = false;
         velocity = Vector2.zero;
         Jumping = false;
+    }
+
+    private void OnEnable()
+    {
+        rigidbody.isKinematic = false;
     }
 
     #endregion

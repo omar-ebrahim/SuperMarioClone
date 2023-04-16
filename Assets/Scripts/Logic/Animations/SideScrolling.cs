@@ -2,19 +2,30 @@ using UnityEngine;
 
 public class SideScrolling : MonoBehaviour
 {
+    #region Constants
+
     private const string TAG_PLAYER = "Player";
+
+    #endregion
+
+    #region Private Fields
 
     private Transform player;
 
-    // camera y = 7, underground = -7
+    #endregion
+
+    #region Serialised Fields
 
     [SerializeField]
     private float overgroundHeight = 7;
 
     [SerializeField]
     private float undergroundHeight = -7;
-    
-    // Initialisation
+
+    #endregion
+
+    #region Unity Methods
+
     private void Awake()
     {
         // We only have one player, so okay to find by this tag.
@@ -33,10 +44,16 @@ public class SideScrolling : MonoBehaviour
         transform.position = cameraPosition; // transform is the Transform attached to THIS game object
     }
 
-    public void SetUnderGround(bool underground)
+    #endregion
+
+    #region Private Methods
+
+    public void SetCameraYPosition(bool underground)
     {
         Vector3 cameraPosition = transform.position;
         cameraPosition.y = underground ? undergroundHeight : overgroundHeight;
         transform.position = cameraPosition;
     }
+
+    #endregion
 }

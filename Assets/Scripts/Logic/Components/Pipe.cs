@@ -1,11 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Helpers;
 using UnityEngine;
 
 public class Pipe : MonoBehaviour
 {
+    #region Serialised Fields
+
     [SerializeField]
     private KeyCode[] enterPipeKeycodes = new KeyCode[] { KeyCode.DownArrow, KeyCode.S };
 
@@ -18,6 +18,10 @@ public class Pipe : MonoBehaviour
     [SerializeField]
     private Vector3 exitDirection = Vector3.zero; // Not animating exit if .zero
 
+    #endregion
+
+    #region Unity Methods
+
     private void OnTriggerStay2D(Collider2D other)
     {
         if (connection != null && other.CompareTag("Player"))
@@ -29,9 +33,14 @@ public class Pipe : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Pivate Methods
+
     private IEnumerator Enter(Transform player)
     {
-        player.GetComponent<PlayerMovement>().enabled = false;
+        var playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement.enabled = false;
 
         Vector3 enteredPosition = transform.position + enterDirection;
         Vector3 enteredScale = Vector3.one * 0.5f;
@@ -39,13 +48,16 @@ public class Pipe : MonoBehaviour
         yield return Move(player, enteredPosition, enteredScale);
         yield return new WaitForSeconds(1f);
 
-        var sideSrolling = Camera.main.GetComponent<SideScrolling>();
-        sideSrolling.SetUnderGround(connection.position.y < 0f);
+        var sideScrolling = Camera.main.GetComponent<SideScrolling>();
+        var isUnderground = connection.position.y < 0f;
+
+        sideScrolling.SetCameraYPosition(isUnderground);
 
         if (exitDirection != Vector3.zero)
         {
             player.position = connection.position - exitDirection;
-            yield return Move(player, connection.position + exitDirection, Vector3.one);
+            var finalPosition = connection.position + exitDirection;
+            yield return Move(player, finalPosition, Vector3.one);
         }
         else
         {
@@ -53,7 +65,7 @@ public class Pipe : MonoBehaviour
             player.localScale = Vector3.one;
         }
 
-        player.GetComponent<PlayerMovement>().enabled = true;
+        playerMovement.enabled = true;
     }
 
     private IEnumerator Move(Transform player, Vector3 endPosition, Vector3 endScale)
@@ -78,4 +90,6 @@ public class Pipe : MonoBehaviour
         player.position = endPosition;
         player.localScale = endScale;
     }
+
+    #endregion
 }

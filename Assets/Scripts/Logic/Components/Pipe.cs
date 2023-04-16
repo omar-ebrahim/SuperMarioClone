@@ -18,37 +18,32 @@ public class Pipe : MonoBehaviour
     [SerializeField]
     private Vector3 exitDirection = Vector3.zero; // Not animating exit if .zero
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (connection != null && collision.CompareTag(Constants.TAG_PLAYER))
+        if (connection != null && other.CompareTag("Player"))
         {
-            if (enterPipeKeycodes.Any(keyCode => Input.GetKey(keyCode)))
+            if (enterPipeKeycodes.Any(x => Input.GetKey(x)))
             {
-                StartCoroutine(EnterPipe(collision.transform));
+                StartCoroutine(Enter(other.transform));
             }
         }
     }
 
-    private IEnumerator EnterPipe(Transform player)
+    private IEnumerator Enter(Transform player)
     {
-        var playerMovement = player.GetComponent<Movement>();
+        player.GetComponent<PlayerMovement>().enabled = false;
 
-        playerMovement.enabled = false;
-
-        // transform = the pipe
         Vector3 enteredPosition = transform.position + enterDirection;
-        Vector3 enteredScale = Vector3.one / 2f; // halve his size
+        Vector3 enteredScale = Vector3.one * 0.5f;
 
-        // This just moves the player into the pipe only
         yield return Move(player, enteredPosition, enteredScale);
         yield return new WaitForSeconds(1f);
 
-        var isUnderground = connection.position.y < 0f;
-        Camera.main.GetComponent<SideScrolling>().SetUnderGround(isUnderground);
+        var sideSrolling = Camera.main.GetComponent<SideScrolling>();
+        sideSrolling.SetUnderGround(connection.position.y < 0f);
 
         if (exitDirection != Vector3.zero)
         {
-            // Exit another pipe
             player.position = connection.position - exitDirection;
             yield return Move(player, connection.position + exitDirection, Vector3.one);
         }
@@ -56,9 +51,9 @@ public class Pipe : MonoBehaviour
         {
             player.position = connection.position;
             player.localScale = Vector3.one;
-            player.GetComponent<Movement>().enabled = true;
         }
 
+        player.GetComponent<PlayerMovement>().enabled = true;
     }
 
     private IEnumerator Move(Transform player, Vector3 endPosition, Vector3 endScale)
@@ -72,14 +67,15 @@ public class Pipe : MonoBehaviour
         while (elapsed < duration)
         {
             float t = elapsed / duration;
+
             player.position = Vector3.Lerp(startPosition, endPosition, t);
             player.localScale = Vector3.Lerp(startScale, endScale, t);
             elapsed += Time.deltaTime;
+
             yield return null;
         }
 
         player.position = endPosition;
         player.localScale = endScale;
-        player.GetComponent<PlayerMovement>().enabled = true;
     }
 }

@@ -28,6 +28,10 @@ public class FlagPole : MonoBehaviour
         yield return MoveTo(player, castle.position);
 
         player.gameObject.SetActive(false); // Player disappears when entering castle
+
+        yield return new WaitForSeconds(2f);
+
+        GameManager.Instance.NextLevel();
     }
 
     private IEnumerator MoveTo(Transform subject, Vector3 destination)

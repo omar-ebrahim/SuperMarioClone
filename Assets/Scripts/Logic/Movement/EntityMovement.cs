@@ -1,89 +1,91 @@
-using System;
 using Assets.Scripts.Helpers;
 using UnityEngine;
 
-public class EntityMovement : Movement
+namespace Assets.Scripts.Logic.Movement
 {
-    #region Private Fields
-
-    private new Rigidbody2D rigidbody;
-    private Vector2 velocity;
-
-    #endregion
-
-    #region Public serialised fields
-
-    [SerializeField]
-    private float speed = 1f;
-
-    [SerializeField]
-    private Vector2 direction = Vector2.left;
-
-    #endregion
-
-    #region Unity Methods
-
-    private void Awake()
+    public class EntityMovement : BaseMovement
     {
-        rigidbody = GetComponent<Rigidbody2D>();
-        // We don't want it moving right away
-        enabled = false;
-    }
+        #region Private Fields
 
-    private void OnBecameInvisible()
-    {
-        enabled = false;
-    }
+        private new Rigidbody2D rigidbody;
+        private Vector2 velocity;
 
-    private void OnBecameVisible()
-    {
-        enabled = true;
-    }
+        #endregion
 
-    private void OnEnable()
-    {
-        rigidbody.WakeUp();
-    }
+        #region Public serialised fields
 
-    private void OnDisable()
-    {
-        rigidbody.velocity = Vector2.zero;
-        rigidbody.Sleep();
-    }
+        [SerializeField]
+        private float speed = 1f;
 
-    private void FixedUpdate()
-    {
-        velocity.x = direction.x * speed;
-        // Unity's gravity
-        velocity.y += Physics2D.gravity.y * Time.fixedDeltaTime;
+        [SerializeField]
+        private Vector2 direction = Vector2.left;
 
-        // Gravity is m/s^2, hence why we multiply by gravity a second time
-        rigidbody.MovePosition(rigidbody.position + velocity * Time.fixedDeltaTime);
+        #endregion
 
-        if (rigidbody.RayCast(direction))
+        #region Unity Methods
+
+        private void Awake()
         {
-            direction = -direction;
+            rigidbody = GetComponent<Rigidbody2D>();
+            // We don't want it moving right away
+            enabled = false;
         }
 
-        if (rigidbody.RayCast(Vector2.down))
+        private void OnBecameInvisible()
         {
-            velocity.y = Mathf.Max(velocity.y, 0f);
+            enabled = false;
         }
+
+        private void OnBecameVisible()
+        {
+            enabled = true;
+        }
+
+        private void OnEnable()
+        {
+            rigidbody.WakeUp();
+        }
+
+        private void OnDisable()
+        {
+            rigidbody.velocity = Vector2.zero;
+            rigidbody.Sleep();
+        }
+
+        private void FixedUpdate()
+        {
+            velocity.x = direction.x * speed;
+            // Unity's gravity
+            velocity.y += Physics2D.gravity.y * Time.fixedDeltaTime;
+
+            // Gravity is m/s^2, hence why we multiply by gravity a second time
+            rigidbody.MovePosition(rigidbody.position + velocity * Time.fixedDeltaTime);
+
+            if (rigidbody.RayCast(direction))
+            {
+                direction = -direction;
+            }
+
+            if (rigidbody.RayCast(Vector2.down))
+            {
+                velocity.y = Mathf.Max(velocity.y, 0f);
+            }
+        }
+
+        #endregion
+
+        #region Public Methods
+
+        public void SetDirection(Vector2 direction)
+        {
+            this.direction = direction;
+        }
+
+        public void SetSpeed(float speed)
+        {
+            this.speed = speed;
+        }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Public Methods
-
-    public void SetDirection(Vector2 direction)
-    {
-        this.direction = direction;
-    }
-
-    public void SetSpeed(float speed)
-    {
-        this.speed = speed;
-    }
-
-    #endregion
 }

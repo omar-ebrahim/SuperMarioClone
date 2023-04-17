@@ -1,40 +1,40 @@
 using UnityEngine;
 
-public class AnimatedSprite : MonoBehaviour
+namespace Assets.Scripts.Logic.Animations
 {
-    [SerializeField]
-    private Sprite[] sprites;
-
-    [SerializeField]
-    private float frameRate = 1f / 6f; // 6fps as default
-
-    private SpriteRenderer spriteRenderer;
-    private int frame;
-
-    private void Awake()
+    public class AnimatedSprite : MonoBehaviour
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
+        [SerializeField] private Sprite[] sprites;
+        [SerializeField] private float frameRate = 1f / 6f; // 6fps as default
 
-    private void OnEnable()
-    {
-        InvokeRepeating(nameof(this.Animate), frameRate, frameRate);
-    }
+        private SpriteRenderer spriteRenderer;
+        private int frame;
 
-    private void OnDisable()
-    {
-        CancelInvoke();
-    }
-
-    private void Animate()
-    {
-        frame++;
-
-        if (frame >= sprites.Length) // Reached the end of the sprites array
+        private void Awake()
         {
-            frame = 0;
+            spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        spriteRenderer.sprite = sprites[frame];
+        private void OnEnable()
+        {
+            InvokeRepeating(nameof(this.Animate), frameRate, frameRate);
+        }
+
+        private void OnDisable()
+        {
+            CancelInvoke();
+        }
+
+        private void Animate()
+        {
+            frame++;
+
+            if (frame >= sprites.Length) // Reached the end of the sprites array
+            {
+                frame = 0;
+            }
+
+            spriteRenderer.sprite = sprites[frame];
+        }
     }
 }

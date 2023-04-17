@@ -1,79 +1,86 @@
+using Assets.Scripts.Logic.Movement;
+using System.Collections;
 using UnityEngine;
 
-using System.Collections; 
-
-public class DeathAnimation : MonoBehaviour
+namespace Assets.Scripts.Logic.Animations
 {
-    [SerializeField]
-    private Sprite deadSprite;
-
-    [SerializeField]
-    private SpriteRenderer SpriteRenderer;
-
-    #region Unity Methods
-
-    private void Reset()
+    public class DeathAnimation : MonoBehaviour
     {
-        SpriteRenderer = GetComponent<SpriteRenderer>();
-    }
+        #region Serialised Fields
 
-    private void OnEnable()
-    {
-        UpdateSprite();
-        DisablePhysics();
-        StartCoroutine(nameof(Animate));
-    }
+        [SerializeField]
+        private Sprite deadSprite;
 
-    #endregion
+        [SerializeField]
+        private SpriteRenderer SpriteRenderer;
 
-    #region Private Methods
+        #endregion
 
-    private void UpdateSprite()
-    {
-        SpriteRenderer.enabled = true;
-        // When player dies, they fall away in front of everything else
-        SpriteRenderer.sortingOrder = 10;
+        #region Unity Methods
 
-        if (deadSprite != null)
+        private void Reset()
         {
-            SpriteRenderer.sprite = deadSprite;
-        }
-    }
-
-    private void DisablePhysics()
-    {
-        foreach (var collider in GetComponents<Collider2D>())
-        {
-            collider.enabled = false;
+            SpriteRenderer = GetComponent<SpriteRenderer>();
         }
 
-        // Stop applying physics to the rigidbody
-        GetComponent<Rigidbody2D>().isKinematic = true;
-        GetComponent<Movement>().enabled = false;
-    }
-
-    private IEnumerator Animate()
-    {
-        float elapsed = 0f;
-        float duration = 4f;
-
-        float jumpVelocity = 10f;
-        float gravity = -36f;
-
-        Vector3 velocity = Vector3.up * jumpVelocity;
-
-        while (elapsed < duration)
+        private void OnEnable()
         {
-            if (elapsed > 0.5f) // wait 1/2 second before animating
+            UpdateSprite();
+            DisablePhysics();
+            StartCoroutine(nameof(Animate));
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void UpdateSprite()
+        {
+            SpriteRenderer.enabled = true;
+            // When player dies, they fall away in front of everything else
+            SpriteRenderer.sortingOrder = 10;
+
+            if (deadSprite != null)
             {
-                transform.position += velocity * Time.deltaTime; // d = vt
-                velocity.y += gravity * Time.deltaTime;
+                SpriteRenderer.sprite = deadSprite;
+            }
+        }
+
+        private void DisablePhysics()
+        {
+            foreach (var collider in GetComponents<Collider2D>())
+            {
+                collider.enabled = false;
             }
 
-            elapsed += Time.deltaTime;
-            yield return null;
+            // Stop applying physics to the rigidbody
+            GetComponent<Rigidbody2D>().isKinematic = true;
+            GetComponent<BaseMovement>().enabled = false;
         }
-    }
 
-    #endregion
+        private IEnumerator Animate()
+        {
+            float elapsed = 0f;
+            float duration = 4f;
+
+            float jumpVelocity = 10f;
+            float gravity = -36f;
+
+            Vector3 velocity = Vector3.up * jumpVelocity;
+
+            while (elapsed < duration)
+            {
+                if (elapsed > 0.5f) // wait 1/2 second before animating
+                {
+                    transform.position += velocity * Time.deltaTime; // d = vt
+                    velocity.y += gravity * Time.deltaTime;
+                }
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+        }
+
+        #endregion
+    }
 }

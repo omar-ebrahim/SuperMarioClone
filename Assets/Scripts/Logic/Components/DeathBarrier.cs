@@ -1,18 +1,21 @@
 using Assets.Scripts.Helpers;
 using UnityEngine;
 
-public class DeathBarrier : MonoBehaviour
+namespace Assets.Scripts.Logic.Components
 {
-    private void OnTriggerEnter2D(Collider2D collision)
+    public class DeathBarrier : MonoBehaviour
     {
-        if (collision.CompareTag(Constants.TAG_PLAYER))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            collision.gameObject.SetActive(false);
-            GameManager.Instance.ResetLevel(3f);
-        }
-        else
-        {
-            Destroy(collision.gameObject);
+            if (collision.CompareTag(Constants.TAG_PLAYER))
+            {
+                collision.gameObject.SetActive(false);
+                GameManager.Instance.ResetLevel(3f);
+            }
+            else
+            {
+                Destroy(collision.gameObject);
+            }
         }
     }
 }

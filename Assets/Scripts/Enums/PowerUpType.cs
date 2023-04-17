@@ -1,7 +1,10 @@
-﻿public enum PowerUpType
+﻿namespace Assets.Scripts.Enums
 {
-    Coin,
-    ExtraLife,
-    MagicMushroom,
-    StarPower
+    public enum PowerUpType
+    {
+        Coin,
+        ExtraLife,
+        MagicMushroom,
+        StarPower
+    }
 }

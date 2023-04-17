@@ -1,12 +1,12 @@
-using Assets.Scripts.Helpers;
+﻿using Assets.Scripts.Helpers;
 using Assets.Scripts.Logic.Animations;
 using Assets.Scripts.Logic.Movement;
 using Assets.Scripts.Logic.Players;
 using UnityEngine;
 
-namespace Assets.Scripts.Logic.Behaviours.Enemy
+namespace Assets.Scripts.Logic.Behaviours.Enemies
 {
-    public class Koopa : MonoBehaviour
+    public abstract class BaseShellEnemy : BaseEnemy
     {
         private bool shelled;
         private bool pushed;
@@ -14,8 +14,17 @@ namespace Assets.Scripts.Logic.Behaviours.Enemy
         [SerializeField]
         protected Sprite shellSprite;
 
-        // in shell
+
         private void OnTriggerEnter2D(Collider2D collision)
+        {
+            TriggerBehaviour(collision);
+        }
+
+        /// <summary>
+        /// Called when the player collides with the trigger in either the shelled/unshelled state.
+        /// </summary>
+        /// <param name="collision">The player or other object that's collided with them.</param>
+        protected virtual void TriggerBehaviour(Collider2D collision)
         {
             if (collision.gameObject.CompareTag(Constants.TAG_PLAYER))
             {
@@ -50,8 +59,16 @@ namespace Assets.Scripts.Logic.Behaviours.Enemy
             }
         }
 
-        // not in shell
         private void OnCollisionEnter2D(Collision2D collision)
+        {
+            CollisionBehaviour(collision);
+        }
+
+        /// <summary>
+        /// Called when the player collides with the shell enemy when NOT in the shell state.
+        /// </summary>
+        /// <param name="collision">The object that has collided with the shell enemy.</param>
+        protected virtual void CollisionBehaviour(Collision2D collision)
         {
             if (collision.gameObject.CompareTag(Constants.TAG_PLAYER))
             {
@@ -94,14 +111,6 @@ namespace Assets.Scripts.Logic.Behaviours.Enemy
             GetComponent<AnimatedSprite>().enabled = false;
             GetComponent<SpriteRenderer>().sprite = shellSprite;
             shelled = true;
-        }
-
-        // TODO: Move to base class
-        private void Hit()
-        {
-            GetComponent<DeathAnimation>().enabled = true;
-            GetComponent<AnimatedSprite>().enabled = false;
-            Destroy(gameObject, 3f);
         }
     }
 }

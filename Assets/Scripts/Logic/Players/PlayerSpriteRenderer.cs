@@ -6,14 +6,26 @@ namespace Assets.Scripts.Logic.Players
 {
     public class PlayerSpriteRenderer : MonoBehaviour
     {
-        public SpriteRenderer SpriteRenderer { get; private set; }
+        #region Serialised Fields
+
+        [SerializeField] private Sprite idle, jump, slide;
+        [SerializeField] private AnimatedSprite run;
+
+        #endregion
+
+        #region Private Fields
+
         private PlayerMovement playerMovement;
 
-        [SerializeField]
-        private Sprite idle, jump, slide;
+        #endregion
 
-        [SerializeField]
-        private AnimatedSprite run;
+        #region Public Properties
+
+        public SpriteRenderer SpriteRenderer { get; private set; }
+
+        #endregion
+
+        #region Unity Methods
 
         private void Awake()
         {
@@ -50,5 +62,7 @@ namespace Assets.Scripts.Logic.Players
             SpriteRenderer.enabled = false;
             run.enabled = false;
         }
+
+        #endregion
     }
 }

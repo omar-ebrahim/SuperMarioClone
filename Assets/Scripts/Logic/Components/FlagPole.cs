@@ -7,10 +7,16 @@ namespace Assets.Scripts.Logic.Components
 {
     public class FlagPole : MonoBehaviour
     {
+        #region Serialised Fields
+
         [SerializeField] private Transform flag;
         [SerializeField] private Transform poleBottom;
         [SerializeField] private Transform castle;
         [SerializeField] private float speed = 6f;
+
+        #endregion
+
+        #region Unity Methods
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -21,6 +27,10 @@ namespace Assets.Scripts.Logic.Components
                 StartCoroutine(LevelCompleteSequence(collision.transform));
             }
         }
+
+        #endregion
+
+        #region Private Methods
 
         private IEnumerator LevelCompleteSequence(Transform player)
         {
@@ -47,5 +57,7 @@ namespace Assets.Scripts.Logic.Components
 
             subject.position = destination;
         }
+
+        #endregion
     }
 }

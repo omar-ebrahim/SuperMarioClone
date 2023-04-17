@@ -4,20 +4,25 @@ using UnityEngine;
 
 namespace Assets.Scripts.Logic.Components
 {
-    public class BlockHit : MonoBehaviour
+    public class BlockHit : MoveableBlock
     {
-        [SerializeField]
-        private int maxHits = -1; // -1 = infinite
+        #region Serialised Fields
 
-        [SerializeField]
-        private Sprite emptyBlock; // what to change to when maximum hits reaches 0
+        [SerializeField] private int maxHits = -1; // -1 = infinite
+        [SerializeField] private Sprite emptyBlock; // what to change to when maximum hits reaches 0
+        [SerializeField] private GameObject rewardItem;
 
-        [SerializeField]
-        private GameObject rewardItem;
+        #endregion
+
+        #region Private Fields
 
         private SpriteRenderer spriteRenderer;
         private bool isAnimated;
         private bool isAnimatable;
+
+        #endregion
+
+        #region Unity Methods
 
         private void Awake()
         {
@@ -39,6 +44,10 @@ namespace Assets.Scripts.Logic.Components
             }
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void Hit()
         {
             spriteRenderer.enabled = true; // To account for hidden blocks
@@ -56,38 +65,16 @@ namespace Assets.Scripts.Logic.Components
                 Instantiate(rewardItem, transform.position, Quaternion.identity);
             }
 
-            StartCoroutine(Animate());
+            StartCoroutine(Animate(0.125f, 0.5f));
         }
 
-        private IEnumerator Animate()
+        private IEnumerator Animate(float duration, float distanceMultiplier)
         {
             isAnimated = true;
-
-            Vector3 restingPosition = transform.localPosition;
-            Vector3 animatedPosition = restingPosition + Vector3.up * 0.5f; // doesn't need to move much
-            yield return Move(restingPosition, animatedPosition);
-            yield return Move(animatedPosition, restingPosition);
-
+            yield return MoveAction(Vector3.up, distanceMultiplier, duration);
             isAnimated = false;
         }
 
-        private IEnumerator Move(Vector3 from, Vector3 to)
-        {
-            float elapsed = 0f;
-            float duration = 0.125f; // 1/8 of a second
-
-            while (elapsed < duration)
-            {
-                float t = elapsed / duration;
-                transform.localPosition = Vector3.Lerp(from, to, t);
-                elapsed += Time.deltaTime;
-
-                yield return null;
-            }
-
-            // End position after the elapsed time might not perfectly match,
-            // so set it to its end position at the end anyway
-            transform.localPosition = to;
-        }
+        #endregion
     }
 }

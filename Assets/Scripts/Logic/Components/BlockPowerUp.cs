@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Assets.Scripts.Logic.Components
 {
-	public class BlockReward : MonoBehaviour
+	public class BlockPowerUp : MonoBehaviour
 	{
 		// Use this for initialization
 		void Start()

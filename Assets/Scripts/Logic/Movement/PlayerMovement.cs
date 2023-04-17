@@ -88,7 +88,43 @@ namespace Assets.Scripts.Logic.Movement
             Jumping = false;
         }
 
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.layer == LayerMask.NameToLayer(Constants.LAYER_ENEMY))
+            {
+                if (transform.DotTest(collision.transform, Vector2.down))
+                {
+                    // play around with this value, but the player bounces off the top of an enemy
+                    velocity.y = JumpForce / 2;
+                    Jumping = true;
+                }
+            }
+            else if (collision.gameObject.layer != LayerMask.NameToLayer(Constants.LAYER_POWERUP))
+            {
+                if (transform.DotTest(collision.transform, Vector2.up))
+                {
+                    velocity.y = 0f; // Stop moving upwards
+                }
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            Vector2 position = rigidbody.position;
+            Vector2 distanceMoved = velocity * Time.fixedDeltaTime; // d = vt
+            position += distanceMoved;
+
+            Vector2 leftEdge = camera.ScreenToWorldPoint(Vector2.zero);
+            Vector2 rightEdge = camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
+
+            position.x = Mathf.Clamp(position.x, leftEdge.x + 0.5f, rightEdge.x - 0.5f);
+
+            rigidbody.MovePosition(position);
+        }
+
         #endregion
+
+        #region Private Methods
 
         private void ApplyGravity()
         {
@@ -144,39 +180,6 @@ namespace Assets.Scripts.Logic.Movement
             }
         }
 
-        // Runs at a given interval
-        private void FixedUpdate()
-        {
-            Vector2 position = rigidbody.position;
-            Vector2 distanceMoved = velocity * Time.fixedDeltaTime; // d = vt
-            position += distanceMoved;
-
-            Vector2 leftEdge = camera.ScreenToWorldPoint(Vector2.zero);
-            Vector2 rightEdge = camera.ScreenToWorldPoint(new Vector2(Screen.width, Screen.height));
-
-            position.x = Mathf.Clamp(position.x, leftEdge.x + 0.5f, rightEdge.x - 0.5f);
-
-            rigidbody.MovePosition(position);
-        }
-
-        private void OnCollisionEnter2D(Collision2D collision)
-        {
-            if (collision.gameObject.layer == LayerMask.NameToLayer(Constants.LAYER_ENEMY))
-            {
-                if (transform.DotTest(collision.transform, Vector2.down))
-                {
-                    // play around with this value, but the player bounces off the top of an enemy
-                    velocity.y = JumpForce / 2;
-                    Jumping = true;
-                }
-            }
-            else if (collision.gameObject.layer != LayerMask.NameToLayer(Constants.LAYER_POWERUP))
-            {
-                if (transform.DotTest(collision.transform, Vector2.up))
-                {
-                    velocity.y = 0f; // Stop moving upwards
-                }
-            }
-        }
+        #endregion
     }
 }

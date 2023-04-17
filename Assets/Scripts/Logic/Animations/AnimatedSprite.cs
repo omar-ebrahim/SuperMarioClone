@@ -4,11 +4,21 @@ namespace Assets.Scripts.Logic.Animations
 {
     public class AnimatedSprite : MonoBehaviour
     {
+        #region Serialised Fields
+
         [SerializeField] private Sprite[] sprites;
-        [SerializeField] private float frameRate = 1f / 6f; // 6fps as default
+        [SerializeField] private float frameRate = 1f / 6f; // 60fps as default
+
+        #endregion
+
+        #region Private fields
 
         private SpriteRenderer spriteRenderer;
         private int frame;
+
+        #endregion
+
+        #region Unity Methods
 
         private void Awake()
         {
@@ -25,6 +35,10 @@ namespace Assets.Scripts.Logic.Animations
             CancelInvoke();
         }
 
+        #endregion
+
+        #region Private Methods
+
         private void Animate()
         {
             frame++;
@@ -36,5 +50,7 @@ namespace Assets.Scripts.Logic.Animations
 
             spriteRenderer.sprite = sprites[frame];
         }
+
+        #endregion
     }
 }

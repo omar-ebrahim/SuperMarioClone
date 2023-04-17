@@ -5,7 +5,7 @@ public class PlayerMovement : Movement
 {
     #region Fields & Constants
 
-
+    private new Collider2D collider;
     private new Rigidbody2D rigidbody;
     private Vector2 velocity;
     private float inputAxis;
@@ -51,8 +51,8 @@ public class PlayerMovement : Movement
 
     private void Awake()
     {
-        // Get this component's Rigidbody2D instance. It only has one.
         rigidbody = GetComponent<Rigidbody2D>();
+        collider = GetComponent<Collider2D>();
         camera = Camera.main;
     }
 
@@ -75,11 +75,15 @@ public class PlayerMovement : Movement
         rigidbody.isKinematic = true;
         velocity = Vector2.zero;
         Jumping = false;
+        collider.enabled = false;
     }
 
     private void OnEnable()
     {
         rigidbody.isKinematic = false;
+        collider.enabled = true;
+        velocity = Vector2.zero;
+        Jumping = false;
     }
 
     #endregion

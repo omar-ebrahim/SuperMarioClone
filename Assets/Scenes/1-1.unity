@@ -9444,6 +9444,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 49099502}
     m_Modifications:
+    - target: {fileID: 430448336653666526, guid: 6dd59c665aa8d12419f395837835f05c, type: 3}
+      propertyPath: castle
+      value: 
+      objectReference: {fileID: 479763496}
     - target: {fileID: 7405073554018269258, guid: 6dd59c665aa8d12419f395837835f05c, type: 3}
       propertyPath: m_Name
       value: FlagPole
